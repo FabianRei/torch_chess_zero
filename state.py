@@ -4,7 +4,11 @@ import random
 
 def get_random_move(fen):
     board = chess.Board(fen)
-    random_move = str(random.choice(list(board.legal_moves)))
+    legal_moves = list(board.legal_moves)
+    if len(legal_moves) > 0:
+        random_move = str(random.choice(legal_moves))
+    else:
+        random_move = ""
     print(random_move)
     return random_move
 

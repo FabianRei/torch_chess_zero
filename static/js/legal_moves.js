@@ -37,7 +37,11 @@ var onDrop = function(source, target) {
 // for castling, en passant, pawn promotion
 var onSnapEnd = function() {
   board.position(game.fen());
-    console.log("trying to call stuff")
+  console.log("trying to call stuff");
+  chessEngineMove()
+};
+
+var chessEngineMove = function() {
   $.ajax({
       url: '',
       data: {'fen':game.fen()},
@@ -51,7 +55,7 @@ var onSnapEnd = function() {
 
       },
   });
-};
+}
 
 var updateStatus = function() {
   var status = '';
@@ -97,6 +101,17 @@ board = ChessBoard('board', cfg);
 
 updateStatus();
 //--- end example JS ---
+$('#startAsBlack').on('click', function(){
+  board.orientation('black');
+  game = new Chess();
+  board.position('start');
+  chessEngineMove();
+});
 
+$('#startAsWhite').on('click', function(){
+  board.orientation('white');
+  game = new Chess();
+  board.position('start');
+})
 }; // end init()
 $(document).ready(init);
